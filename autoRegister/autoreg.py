@@ -8,13 +8,13 @@ from selenium.webdriver.common.by import By
 date_today  = datetime.datetime.now()
 desire_date = date_today + datetime.timedelta(days=8)
 
-with open('/Users/yudiyang/Desktop/autoRegister/autoRegister/login.yaml', 'r') as f:
+with open(r'C:\Users\Yudi\Documents\GitHub\autoRegister\autoRegister\login.yaml','r') as f:
   config = yaml.safe_load(f)
 
 driver = webdriver.Chrome(ChromeDriverManager().install())
 
 def login(username, password):
-  driver.get('https://lt.clubautomation.com')
+  driver.get(r'https://lt.clubautomation.com')
   driver.maximize_window()
   driver.find_element(By.ID, 'login').send_keys(username)
   driver.find_element(By.ID, 'password').send_keys(password)
@@ -37,7 +37,7 @@ def login(username, password):
   except:
     print('No desire time avaiable.')
   driver.quit()
-  
+
 
 
 def main():

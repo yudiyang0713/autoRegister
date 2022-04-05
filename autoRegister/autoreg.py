@@ -10,6 +10,7 @@ desire_date = date_today + datetime.timedelta(days=8)
 
 with open(r'C:\Users\Yudi\Documents\GitHub\autoRegister\autoRegister\login.yaml','r') as f:
   config = yaml.safe_load(f)
+  f.close()
 
 driver = webdriver.Chrome(ChromeDriverManager().install())
 
@@ -34,8 +35,16 @@ def login(username, password):
     driver.find_element(By.XPATH, "//button[@id='confirm']").click()
     print('Reserved Court for Date:', desire_date.strftime("%m/%d/%Y"))
     time.sleep(5)
+    log = "Reserved Court for Date:"+desire_date.strftime("%m/%d/%Y")+"\n"
+    with open(r'C:\Users\Yudi\Documents\GitHub\autoRegister\autoRegister\regist.log','a') as f:
+        f.write(log)
+        f.close()
   except:
     print('No desire time avaiable.')
+    log = "No desire time avaiable."+desire_date.strftime("%m/%d/%Y")+"\n"
+    with open(r'C:\Users\Yudi\Documents\GitHub\autoRegister\autoRegister\regist.log','a') as f:
+        f.write(log)
+        f.close()
   driver.quit()
 
 

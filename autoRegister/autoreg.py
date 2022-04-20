@@ -5,6 +5,12 @@ import yaml
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
+date_today  = datetime.datetime.now()
+desire_date = date_today + datetime.timedelta(days=8)
+with open(r'C:\Users\Yudi\Documents\GitHub\autoRegister\autoRegister\login.yaml','r') as f:
+    config = yaml.safe_load(f)
+    f.close()
+driver = webdriver.Chrome(ChromeDriverManager().install())
 
 def login(username, password):
   driver.get(r'https://lt.clubautomation.com')
@@ -18,10 +24,11 @@ def login(username, password):
   driver.find_element(By.ID, 'date').clear()
   driver.find_element(By.ID, 'date').send_keys(desire_date.strftime("%m/%d/%Y"))
   if(desire_date.weekday() == 0 or desire_date.weekday() == 2):
-    if(not register("120", "8:00pm"))：
+    if(not register("120", "8:00pm")):
       register("60", "8:30pm")
   elif(desire_date.weekday() == 1 or desire_date.weekday() == 3):
-    register("60", "8:30pm")
+    if(not register("60", "8:30pm")):
+      register("120", "8:00pm")
 
 def register(period, start_time):
   try:
@@ -50,14 +57,6 @@ def register(period, start_time):
 
 
 def main():
-  date_today  = datetime.datetime.now()
-  desire_date = date_today + datetime.timedelta(days=8)
-
-  with open(r'C:\Users\Yudi\Documents\GitHub\autoRegister\autoRegister\login.yaml','r') as f:
-    config = yaml.safe_load(f)
-    f.close()
-
-  driver = webdriver.Chrome(ChromeDriverManager().install())
   login(config['email'], config['password'])
   driver.quit()
 

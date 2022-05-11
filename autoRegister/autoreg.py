@@ -24,9 +24,6 @@ def login(username, password):
   driver.find_element(By.ID, 'date').clear()
   driver.find_element(By.ID, 'date').send_keys(desire_date.strftime("%m/%d/%Y"))
   if(desire_date.weekday() == 0 or desire_date.weekday() == 2):
-    if(not register("120", "8:00pm")):
-      register("60", "8:30pm")
-  elif(desire_date.weekday() == 1 or desire_date.weekday() == 3):
     if(not register("60", "8:30pm")):
       register("120", "8:00pm")
 
